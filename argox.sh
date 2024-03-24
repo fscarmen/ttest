@@ -379,10 +379,10 @@ EOF
 
 # 判断虚拟化
 check_system_info() {
-  if [ $(type -p systemd-detect-virt) ]; then
-    VIRT=$(systemd-detect-virt)
-  elif [ $(type -p hostnamectl) ]; then
+  if [ $(type -p hostnamectl) ]; then
     VIRT=$(hostnamectl | awk '/Virtualization/{print $NF}')
+  elif [ $(type -p systemd-detect-virt) ]; then
+    VIRT=$(systemd-detect-virt)
   elif [ $(type -p virt-what) ]; then
     VIRT=$(virt-what)
   fi
@@ -756,7 +756,7 @@ After=network.target
 Type=simple
 NoNewPrivileges=yes
 TimeoutStartSec=0"
-  [[ "$INSTALL_NGINX" != 'n' || "$IS_CENTOS" != 'CentOS7' ]] && ARGO_SERVER+="
+  [[ "$INSTALL_NGINX" != 'n' && "$IS_CENTOS" != 'CentOS7' ]] && ARGO_SERVER+="
 ExecStartPre=$(type -p nginx) -c $WORK_DIR/nginx.conf"
   ARGO_SERVER+="
 ExecStart=$ARGO_RUNS
@@ -1579,7 +1579,7 @@ statistics_of_run-times
 
 while getopts ":AaXxTtUuNnVvBbF:f:" OPTNAME; do
   case "${OPTNAME,,}" in
-    a ) select_language; check_system_info; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && { cmd_systemctl enable argo; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && info "\n Argo $(text 28) $(text 37)" || error " Argo $(text 28) $(text 38) "; } || { cmd_systemctl disable argo; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && info "\n Argo $(text 27) $(text 37)" || error " Argo $(text 27) $(text 38) "; } ;  exit 0 ;;
+    a ) select_language; check_system_info; check_install; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && { cmd_systemctl enable argo; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && info "\n Argo $(text 28) $(text 37)" || error " Argo $(text 28) $(text 38) "; } || { cmd_systemctl disable argo; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && info "\n Argo $(text 27) $(text 37)" || error " Argo $(text 27) $(text 38) "; } ;  exit 0 ;;
     x ) select_language; check_system_info; [[ "$(systemctl is-active xray)" =~ 'inactive'|'unknown' ]] && { cmd_systemctl enable xray; [ "$(systemctl is-active xray)" = 'active' ] && info "\n Xray $(text 28) $(text 37)" || error " Xray $(text 28) $(text 38) "; } || { cmd_systemctl disable xray; [[ "$(systemctl is-active xray)" =~ 'inactive'|'unknown' ]] && info "\n Xray $(text 27) $(text 37)" || error " Xray $(text 27) $(text 38) "; } ;  exit 0 ;;
     t ) select_language; change_argo; exit 0 ;;
     u ) select_language; check_system_info; uninstall; exit 0;;
