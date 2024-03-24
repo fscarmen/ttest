@@ -358,7 +358,7 @@ EOF
       rc-update add local >/dev/null 2>&1
     elif [ "$IS_CENTOS" = 'CentOS7' ]; then
       systemctl enable --now $APP
-      [ "$IS_NGINX" = 'is_nginx' ] && $(type -p nginx) -c $WORK_DIR/nginx.conf
+      [[ "$APP" = 'argo' && "$IS_NGINX" = 'is_nginx' ]] && $(type -p nginx) -c $WORK_DIR/nginx.conf
     else
       systemctl enable --now $APP
     fi
