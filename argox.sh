@@ -1580,7 +1580,7 @@ statistics_of_run-times
 while getopts ":AaXxTtUuNnVvBbF:f:" OPTNAME; do
   case "${OPTNAME,,}" in
     a ) select_language; check_system_info; check_install; [ "${STATUS[0]}" = "$(text 28)" ] && { cmd_systemctl disable argo; [[ "$(systemctl is-active argo)" =~ 'inactive'|'unknown' ]] && info "\n Argo $(text 27) $(text 37)" || error " Argo $(text 27) $(text 38) "; } || { cmd_systemctl enable argo; [ "$(systemctl is-active argo)" = 'active' ] && info "\n Argo $(text 28) $(text 37)" || error " Argo $(text 28) $(text 38) "; } ; exit 0 ;;
-    x ) select_language; check_system_info; check_install; [ "${STATUS[0]}" = "$(text 28)" ] && { cmd_systemctl disable xray; [[ "$(systemctl is-active xray)" =~ 'inactive'|'unknown' ]] && info "\n Xray $(text 27) $(text 37)" || error " Xray $(text 27) $(text 38) "; } || { cmd_systemctl enable xray; [ "$(systemctl is-active xray)" = 'active' ] && info "\n Xray $(text 28) $(text 37)" || error " Xray $(text 28) $(text 38) "; } ; exit 0 ;;
+    x ) select_language; check_system_info; check_install; [ "${STATUS[1]}" = "$(text 28)" ] && { cmd_systemctl disable xray; [[ "$(systemctl is-active xray)" =~ 'inactive'|'unknown' ]] && info "\n Xray $(text 27) $(text 37)" || error " Xray $(text 27) $(text 38) "; } || { cmd_systemctl enable xray; [ "$(systemctl is-active xray)" = 'active' ] && info "\n Xray $(text 28) $(text 37)" || error " Xray $(text 28) $(text 38) "; } ; exit 0 ;;
     t ) select_language; change_argo; exit 0 ;;
     u ) select_language; check_system_info; uninstall; exit 0;;
     n ) select_language; check_system_info; export_list; exit 0 ;;
