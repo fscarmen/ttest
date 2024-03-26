@@ -567,7 +567,7 @@ check_dependencies() {
     if [ "${#DEPS_ALPINE[@]}" -ge 1 ]; then
       info "\n $(text 7) $(sed "s/ /,&/g" <<< ${DEPS_ALPINE[@]}) \n"
       ${PACKAGE_UPDATE[int]} >/dev/null 2>&1
-      [ "$SYSTEM" != 'CentOS' ] && ${PACKAGE_INSTALL[int]} >/dev/null 2>&1
+      ${PACKAGE_INSTALL[int]} >/dev/null 2>&1
       ${DEPS_ALPINE[@]} >/dev/null 2>&1
     fi
 
@@ -582,7 +582,7 @@ check_dependencies() {
   done
   if [ "${#DEPS[@]}" -ge 1 ]; then
     info "\n $(text 7) $(sed "s/ /,&/g" <<< ${DEPS[@]}) \n"
-    ${PACKAGE_UPDATE[int]} >/dev/null 2>&1
+    [ "$SYSTEM" != 'CentOS' ] && ${PACKAGE_UPDATE[int]} >/dev/null 2>&1
     ${PACKAGE_INSTALL[int]} ${DEPS[@]} >/dev/null 2>&1
   else
     info "\n $(text 8) \n"
