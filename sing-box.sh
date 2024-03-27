@@ -402,7 +402,7 @@ check_system_info() {
     [[ "${SYS,,}" =~ ${REGEX[int]} ]] && SYSTEM="${RELEASE[int]}" && break
   done
 
-  # 针对各厂运的订制系统
+  # 针对各厂商的订制系统
   if [ -z "$SYSTEM" ]; then
     [ $(type -p yum) ] && int=2 && SYSTEM='CentOS' || error " $(text 5) "
   fi
