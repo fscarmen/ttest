@@ -1,4 +1,4 @@
-第一个阶段：使用 OpenSSL 生成证书文件
+# 第一个阶段：使用 OpenSSL 生成证书文件
 FROM alpine/openssl:latest AS openssl
 
 # 生成私钥和证书
