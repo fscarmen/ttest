@@ -8,26 +8,32 @@
 - [项目特点](README.md#项目特点)
 - [Sing-box for VPS 运行脚本](README.md#sing-box-for-vps-运行脚本)
 - [无交互极速安装](README.md#无交互极速安装)
-- [Vmess / Vless 方案设置任意端口回源以使用 cdn](README.md#Vmess--Vless-方案设置任意端口回源以使用-cdn)
+- [Vmess / Vless 方案设置任意端口回源以使用 cdn](README.md#vmess--lless-方案设置任意端口回源以使用-cdn)
+- [Docker 和 Docker compose 安装](README.md#docker-和-docker-compose-安装)
 - [Nekobox 设置 shadowTLS 方法](README.md#nekobox-设置-shadowtls-方法)
 - [主体目录文件及说明](README.md#主体目录文件及说明)
 - [鸣谢下列作者的文章和项目](README.md#鸣谢下列作者的文章和项目)
 - [免责声明](README.md#免责声明)
 
+
 * * *
 ## 更新信息
+2024.04.01 sing-box + argo container version is newly launched, for details: https://github.com/fscarmen/sing-box/blob/main/README.md; sing-box 全家桶 + argo 容器版本全新上线，详细参考: https://github.com/fscarmen/sing-box/blob/main/README.md
+
+2024.03.27 v1.1.11 Add two non-interactive installation modes: 1. pass parameter; 2.kv file, for details: https://github.com/fscarmen/sing-box/blob/main/README.md; 增加两个的无交互安装模式: 1. 传参；2.kv 文件，详细参考: https://github.com/fscarmen/sing-box/blob/main/README.md
+
 2024.03.26 v1.1.10 Thanks to UUb for the official change of the compilation, dependencies jq, qrencode from apt installation to download the binary file, reduce the installation time of about 15 seconds, the implementation of the project's positioning of lightweight, as far as possible to install the least system dependencies; 感谢 UUb 兄弟的官改编译，依赖 jq, qrencode 从 apt 安装改为下载二进制文件，缩减安装时间约15秒，贯彻项目轻量化的定位，尽最大可能安装最少的系统依赖
 
 2024.03.22 v1.1.9 1. In the Sing-box client, add the brutal field in the TCP protocol to make it effective; 2. Compatible with CentOS 7,8,9; 3. Remove default Github CDN; 1. 在 Sing-box 客户端，TCP 协议协议里加上 brutal 字段以生效; 2. 适配 CentOS 7,8,9; 3. 去掉默认的 Github 加速网
-
-2024.3.18 v1.1.8 Move nginx for subscription services to the systemd daemon, following sing-box startup and shutdown; 把用于订阅服务的 nginx 移到 systemd daemon，跟随 sing-box 启停
-
-2024.3.13 v1.1.7 Subscription made optional, no nginx and qrcode installed if not needed; 在线订阅改为可选项，如不需要，不安装 nginx 和 qrcode
 
 <details>
     <summary>历史更新 history（点击即可展开或收起）</summary>
 <br>
 
+>2024.3.18 v1.1.8 Move nginx for subscription services to the systemd daemon, following sing-box startup and shutdown; 把用于订阅服务的 nginx 移到 systemd daemon，跟随 sing-box 启停
+>
+>2024.3.13 v1.1.7 Subscription made optional, no nginx and qrcode installed if not needed; 在线订阅改为可选项，如不需要，不安装 nginx 和 qrcode
+>
 >2024.3.11 v1.1.6 1. Subscription api too many problems not working properly, instead put template-2 on Github; 2. Use native IP if it supports unlocking chatGPT, otherwise use warp chained proxy unlocking; 1. 在线转订阅 api 太多问题不能正常使用，改为把模板2放Github; 2. 如自身支持解锁 chatGPT，则使用原生 IP，否则使用 warp 链式代理解锁
 >
 >2024.3.10 v1.1.5 1. To protect node data security, use fake information to fetch subscribe api; 2. Adaptive the above clients. http://\<server ip\>:\<nginx port\>/\<uuid\>/<uuid>/<auto | auto2>; 1. 为保护节点数据安全，在 api 转订阅时，使用虚假信息; 2. 自适应以上的客户端，http://\<server ip\>:\<nginx port\>/\<uuid\>/<auto | auto2>
@@ -71,16 +77,22 @@
 * 不需要域名 ( vmess / vless 方案例外)
 * 智能判断操作系统: Ubuntu 、Debian 、CentOS 、Alpine 和 Arch Linux,请务必选择 LTS 系统
 * 支持硬件结构类型: AMD 和 ARM，支持 IPv4 和 IPv6
+* 无交互极速安排模式: 一个回车完成超 10 个协议的安装
 
 
 ## Sing-box for VPS 运行脚本:
 
+* 首次运行
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-box.sh)
 ```
+* 再次运行
+```
+sb
+```
 
   | Option 参数      | Remark 备注 |
-  | --------------- | ----------- |
+  | --------------- | ------ |
   | -c              | Chinese 中文 |
   | -e              | English 英文 |
   | -u              | Uninstall 卸载 |
@@ -93,12 +105,12 @@ bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-b
 
 
 ## 无交互极速安装:
-### 1. KV 配置文件，内容参照本库里的 config
+### 方式1. KV 配置文件，内容参照本库里的 config
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-box.sh) -f config
 ```
 
-### 2. KV 传参，举例
+### 方式2. KV 传参，举例
 ```
 bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-box.sh) \
   --LANGUAGE c \
@@ -114,7 +126,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-b
 ```
 
 ### 参数说明
-| Key | Value |
+| Key 大小写不敏感（Case Insensitive）| Value |
 | --------------- | ----------- |
 | --LANGUAGE | c=中文;  e=英文 |
 | --CHOOSE_PROTOCOLS | 可多选，如 bcdfk<br> a=全部<br> b=XTLS + reality<br> c=hysteria2<br> d=tuic<br> e=ShadowTLS<br> f=shadowsocks<br> g=trojan<br> h=vmess + ws<br> i=vless + ws + tls<br> j=H2 + reality<br> k=gRPC + reality |
@@ -125,7 +137,8 @@ bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-b
 | --VMESS_HOST_DOMAIN | vmess sni 域名，如 --CHOOSE_PROTOCOLS 是 [a,h] 时需要 |
 | --VLESS_HOST_DOMAIN | vless sni 域名，如 --CHOOSE_PROTOCOLS 是 [a,i] 时需要 |
 | --UUID_CONFIRM | 协议的 uuid 或者 password |
-| --NODE_NAME_CONFIRM | 节点名，一定不能有空格 |
+| --NODE_NAME_CONFIRM | 节点名 |
+
 
 ## Vmess / Vless 方案设置任意端口回源以使用 cdn
 举例子 IPv6: vmess [2a01:4f8:272:3ae6:100b:ee7a:ad2f:1]:10006
@@ -137,6 +150,117 @@ bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-b
 2. 设置 Origin rule
 <img width="1556" alt="image" src="https://github.com/fscarmen/sing-box/assets/62703343/164bf255-a6be-40bc-a724-56e13da7a1e6">
 
+
+## Docker 和 Docker compose 安装
+
+### 说明:
+* 支持三种 Argo 类型隧道: 临时 (不需要域名) / Json / Token
+* 需要20个连续可用的端口，以 `START_PORT` 开始第一个
+
+
+### 用户可以通过 Cloudflare Json 生成网轻松获取: https://fscarmen.cloudflare.now.cc
+
+<img width="784" alt="image" src="https://github.com/fscarmen/sba/assets/62703343/fb7c6e90-fb3e-4e77-bcd4-407e4660a33c">
+
+如想手动，可以参考，以 Debian 为例，需要用到的命令，[Deron Cheng - CloudFlare Argo Tunnel 试用](https://zhengweidong.com/try-cloudflare-argo-tunnel)
+
+
+### Argo Token 的获取
+
+详细教程: [群晖套件：Cloudflare Tunnel 内网穿透中文教程 支持DSM6、7](https://imnks.com/5984.html)
+
+<img width="1510" alt="image" src="https://github.com/fscarmen/sba/assets/62703343/bb2d9c43-3585-4abd-a35b-9cfd7404c87c">
+
+<img width="1616" alt="image" src="https://github.com/fscarmen/sing-box/assets/62703343/ecb844be-1e93-4208-bb7c-6b00b9d1f00a">
+
+### Docker 部署
+
+```
+docker run -dit \
+    --pull always \
+    --name sing-box 
+    -p 8800-8820:8800-8820/tcp \
+    -p 8800-8820:8800-8820/udp \
+    -e START_PORT=8800 \
+    -e SERVER_IP=123.123.123.123 \
+    -e XTLS_REALITY=true \
+    -e HYSTERIA2=true \
+    -e TUIC=true \
+    -e SHADOWTLS=true \
+    -e SHADOWSOCKS=true \
+    -e TROJAN=true \
+    -e VMESS_WS=true \
+    -e VLESS_WS=true \
+    -e H2_REALITY=true \
+    -e GRPC_REALITY=true \
+    -e UUID=68fe8d27-cbc8-4e72-90b7-70d3bb69dfd3 \
+    -e CDN=www.csgo.com \
+    -e NODE_NAME=sing-box \
+    -e ARGO_DOMAIN=sb.formyvmess.tk \
+    -e ARGO_AUTH='{"AccountTag":"9cc9e3e4d8f29d2a02e297f14f20513a","TunnelSecret":"6AYfKBOoNlPiTAuWg64ZwujsNuERpWLm6pPJ2qpN8PM=","TunnelID":"1ac55430-f4dc-47d5-a850-bdce824c4101"}' \
+    fscarmen/sb
+```
+
+
+### Docker Compose 部署
+```
+version: '3.8'
+services:
+    sing-box:
+        image: fscarmen/sb
+        pull_policy: always
+        container_name: sing-box
+        restart: always
+        ports:
+            - "8000-8020:8800-8820/tcp"
+            - "8000-8020:8800-8820/udp"
+        environment:
+            - START_PORT=8800
+            - SERVER_IP=123.123.123.123
+            - XTLS_REALITY=true
+            - HYSTERIA2=true
+            - TUIC=true
+            - SHADOWTLS=true
+            - SHADOWSOCKS=true
+            - TROJAN=true
+            - VMESS_WS=true
+            - VLESS_WS=true
+            - H2_REALITY=true
+            - GRPC_REALITY=true
+            - UUID=68fe8d27-cbc8-4e72-90b7-70d3bb69dfd3 
+            - CDN=www.csgo.com
+            - NODE_NAME=sing-box
+            - ARGO_DOMAIN=sb.formyvmess.tk
+            - ARGO_AUTH=eyJhIjoiOWNjOWUzZTRkOGYyOWQyYTAyZTI5N2YxNGYyMDUxM2EiLCJ0IjoiOGNiZDA4ZjItNGM0MC00OGY1LTlmZDYtZjlmMWQ0YTcxMjUyIiwicyI6IllXWTFORGN4TW1ZdE5HTXdZUzAwT0RaakxUbGxNMkl0Wm1VMk5URTFOR0l4TkdKayJ9
+```
+
+### 更新 Sing-box 版本
+```
+docker exec -it sing-box bash init.sh -v
+```
+
+### 参数说明
+| 参数 | 是否必须 | 说明 |
+| --- | ------- | --- |
+| -p /tcp | 是 | 宿主机端口范围:容器 sing-box 及 nginx 等 tcp 监听端口 |
+| -p /udp | 是 | 宿主机端口范围:容器 sing-box 及 nginx 等 udp 监听端口 |
+| -e START_PORT | 是 | 起始端口 ，一定要与端口映射的起始端口一致 |
+| -e SERVER_IP | 是 | 服务器公网 IP |
+| -e XTLS_REALITY | 是 |    true 为启用 XTLS + reality，不需要的话删除本参数或填 false |
+| -e HYSTERIA2 | 是 |       true 为启用 Hysteria v2 协议，不需要的话删除本参数或填 false |
+| -e TUIC | 是 |            true 为启用 TUIC 协议，不需要的话删除本参数或填 false |
+| -e SHADOWTLS | 是 |       true 为启用 ShadowTLS 协议，不需要的话删除本参数或填 false |
+| -e SHADOWSOCKS | 是 |     true 为启用 ShadowSocks 协议，不需要的话删除本参数或填 false |
+| -e TROJAN | 是 |          true 为启用 Trojan 协议，不需要的话删除本参数或填 false |
+| -e VMESS_WS | 是 |        true 为启用 VMess over WebSocket 协议，不需要的话删除本参数或填 false |
+| -e VLESS_WS | 是 |        true 为启用 VLess over WebSocket 协议，不需要的话删除本参数或填 false |
+| -e H2_REALITY | 是 |      true 为启用 H2 over reality 协议，不需要的话删除本参数或填 false |
+| -e GRPC_REALITY | 是 |    true 为启用 gRPC over reality 协议，不需要的话删除本参数或填 false |
+| -e UUID | 否 | 不指定的话 UUID 将默认随机生成 |
+| -e CDN | 否 | 优选域名，不指定的话将使用 www.csgo.com |
+| -e NODE_NAME | 否 | 节点名称，不指定的话将使用 sing-box |
+| -e ARGO_DOMAIN | 否 | Argo 固定隧道域名 , 与 ARGO_DOMAIN 一并使用才能生效 |
+| -e ARGO_AUTH | 否 | Argo 认证信息，可以是 Json 也可以是 Token，与 ARGO_DOMAIN 一并使用才能生效，不指定的话将使用临时隧道 |
 
 ## Nekobox 设置 shadowTLS 方法
 1. 复制脚本输出的两个 Neko links 进去
@@ -199,7 +323,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/fscarmen/sing-box/main/sing-b
 
 ## 鸣谢下列作者的文章和项目:
 千歌 sing-box 模板: https://github.com/chika0801/sing-box-examples  
-瞎折腾 sing-box 模板: https://t.me/ztvps/96
+瞎折腾 sing-box 模板: https://t.me/ztvps/100
 
 
 ## 免责声明:
