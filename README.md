@@ -196,7 +196,7 @@ docker run -dit \
     -e UUID=68fe8d27-cbc8-4e72-90b7-70d3bb69dfd3 \
     -e CDN=www.csgo.com \
     -e NODE_NAME=sing-box \
-    -e ARGO_DOMAIN=sb.formyvmess.tk \
+    -e ARGO_DOMAIN=sb.argo.com \
     -e ARGO_AUTH='{"AccountTag":"9cc9e3e4d8f29d2a02e297f14f20513a","TunnelSecret":"6AYfKBOoNlPiTAuWg64ZwujsNuERpWLm6pPJ2qpN8PM=","TunnelID":"1ac55430-f4dc-47d5-a850-bdce824c4101"}' \
     fscarmen/sb
 ```
@@ -230,7 +230,7 @@ services:
             - UUID=68fe8d27-cbc8-4e72-90b7-70d3bb69dfd3 
             - CDN=www.csgo.com
             - NODE_NAME=sing-box
-            - ARGO_DOMAIN=sb.formyvmess.tk
+            - ARGO_DOMAIN=sb.argo.com
             - ARGO_AUTH=eyJhIjoiOWNjOWUzZTRkOGYyOWQyYTAyZTI5N2YxNGYyMDUxM2EiLCJ0IjoiOGNiZDA4ZjItNGM0MC00OGY1LTlmZDYtZjlmMWQ0YTcxMjUyIiwicyI6IllXWTFORGN4TW1ZdE5HTXdZUzAwT0RaakxUbGxNMkl0Wm1VMk5URTFOR0l4TkdKayJ9
 ```
 
