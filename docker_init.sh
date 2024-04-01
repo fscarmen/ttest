@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+
 WORK_DIR=/sing-box
 PORT=$START_PORT
 SUBSCRIBE_TEMPLATE="https://raw.githubusercontent.com/fscarmen/client_template/main"
