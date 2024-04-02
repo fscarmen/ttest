@@ -8,7 +8,7 @@
 - [2.项目特点](README.md#2项目特点)
 - [3.Sing-box for VPS 运行脚本](README.md#3sing-box-for-vps-运行脚本)
 - [4.无交互极速安装](README.md#4无交互极速安装)
-- [5.Vmess / Vless 方案设置任意端口回源以使用 cdn](README.md#5vmess--lless-方案设置任意端口回源以使用-cdn)
+- [5.Vmess / Vless 方案设置任意端口回源以使用 cdn](README.md#5vmess--vless-方案设置任意端口回源以使用-cdn)
 - [6.Docker 和 Docker compose 安装](README.md#6docker-和-docker-compose-安装)
 - [7.Nekobox 设置 shadowTLS 方法](README.md#7nekobox-设置-shadowtls-方法)
 - [8.主体目录文件及说明](README.md#8主体目录文件及说明)
