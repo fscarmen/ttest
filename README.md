@@ -15,7 +15,8 @@
 * * *
 
 ## 1.特点
-
+- 博客教程: https://www.fscarmen.com/2025/01/gost-argo.html
+- 视频教程:
 - Cloudflare Tunnel 突破需要公网入口的限制 --- 传统的各协议服务端需要公网端口，本项目借用 Cloudflare Tunnel，使用内网穿透的办法.
 - 应用场景广 --- 除传统的 VPS 外，还可以在各容器和游戏平台部署
 - 无需额外优选 --- 因为国外的 VPS 一般线路较好，所以可以直连 Cloudflare Tunnel，使用 WS CDN 时无需额外优选，无需担心网络质量问题
